@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Note } from './entities/note.entity';
 import { CreateNoteInput } from './dto/create-note.input';
 import { UpdateNoteInput } from './dto/update-note.input';
 
 @Injectable()
 export class NoteService {
-  create(createNoteInput: CreateNoteInput) {
-    return 'This action adds a new note';
+  constructor(
+    @InjectRepository(Note)
+    private noteRepository: Repository<Note>,
+  ) {}
+
+  findAll(): Promise<Note[]> {
+    return this.noteRepository.find();
   }
 
-  findAll() {
-    return `This action returns all note`;
+  findOne(id: number): Promise<Note> {
+    return this.noteRepository.findOne({ where: { id } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async create(createNoteInput: CreateNoteInput): Promise<Note> {
+    const note = this.noteRepository.create(createNoteInput);
+    return this.noteRepository.save(note);
   }
 
-  update(id: number, updateNoteInput: UpdateNoteInput) {
-    return `This action updates a #${id} note`;
+  async update(id: number, updateNoteInput: UpdateNoteInput) {
+    const note = await this.findOne(id);
+    this.noteRepository.merge(note, updateNoteInput);
+    return this.noteRepository.save(note);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} note`;
+  async remove(id: number): Promise<void> {
+    await this.noteRepository.delete(id);
   }
 }
