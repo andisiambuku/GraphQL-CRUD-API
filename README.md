@@ -23,7 +23,6 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 # GraphQL CRUD
-This is a GraphQL CRUD API.
 
 ## Description
 This is a GraphQL CRUD API that is my way to learn how GraphQL works in Nest JS.
