@@ -9,7 +9,7 @@ export class NoteResolver {
   constructor(private readonly noteService: NoteService) {}
 
   @Mutation(() => Note)
-  createNote(@Args('createNoteInput') createNoteInput: CreateNoteInput) {
+  async createNote(@Args('createNoteInput') createNoteInput: CreateNoteInput) {
     return this.noteService.create(createNoteInput);
   }
 
