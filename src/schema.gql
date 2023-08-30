@@ -7,11 +7,6 @@ input CreateNoteInput {
   title: String!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Mutation {
   createNote(createNoteInput: CreateNoteInput!): Note!
   removeNote(id: Int!): Note!
@@ -20,14 +15,13 @@ type Mutation {
 
 type Note {
   body: String!
-  created_at: DateTime!
   id: Int!
   title: String!
-  updated_at: DateTime!
 }
 
 type Query {
   note(id: Int!): Note!
+  notes: [Note!]!
 }
 
 input UpdateNoteInput {

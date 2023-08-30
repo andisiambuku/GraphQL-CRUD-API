@@ -13,7 +13,7 @@ export class NoteResolver {
     return this.noteService.create(createNoteInput);
   }
 
-  @Query(() => [Note], { name: 'note' })
+  @Query(() => [Note], { name: 'notes' })
   findAll() {
     return this.noteService.findAll();
   }
